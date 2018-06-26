@@ -6,7 +6,6 @@ from mrjob.job import MRJob
 from mrjob.protocol import RawValueProtocol
 from functools import reduce
 from operator import add
-from itertools import chain
 
 
 class LongestWordsJob(MRJob):
