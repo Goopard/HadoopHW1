@@ -6,6 +6,7 @@ from mrjob.job import MRJob
 from mrjob.protocol import RawValueProtocol
 from functools import reduce
 from operator import add
+from itertools import chain
 
 
 class LongestWordsJob(MRJob):
@@ -30,8 +31,8 @@ class LongestWordsJob(MRJob):
         """
         number = self.options.number
         if line:
-            words = sorted(line.split(), key=len)
-            max_word = words[-1:-number - 1:-1]
+            words = sorted(line.split(), key=len, reverse=True)
+            max_word = words[:number]
             yield None, max_word
 
     def reducer(self, key, values):
@@ -41,9 +42,9 @@ class LongestWordsJob(MRJob):
         """
         values = reduce(add, values, [])
         number = self.options.number
-        words = sorted(values, key=len)
-        max_word = words[-1:-number - 1:-1]
-        yield None, reduce(lambda x, y: x + y + '\n', max_word, '')
+        words = sorted(values, key=len, reverse=True)
+        max_word = words[:number]
+        yield None, '\n'.join(max_word) + '\n'
 
 
 if __name__ == '__main__':
