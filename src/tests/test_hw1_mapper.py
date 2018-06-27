@@ -3,6 +3,8 @@ This is a unittest testcase for the function mapper of the job LargestWordsJob.
 """
 
 import unittest
+import sys
+from io_redirect import StdOutRedirector
 from largest_words_job import LongestWordsJob
 
 
@@ -27,7 +29,7 @@ class MapperTests(unittest.TestCase):
         """
         test_job = LongestWordsJob(['--number=2'])
         self.assertEqual(next(test_job.mapper(None, 'This is a quiet long string with many words')),
-                         (None, ['string', 'words']))
+                         (None, ['string', 'quiet']))
 
 
 if __name__ == '__main__':

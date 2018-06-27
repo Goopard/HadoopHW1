@@ -6,6 +6,7 @@ from mrjob.job import MRJob
 from mrjob.protocol import RawValueProtocol
 from functools import reduce
 from operator import add
+import re
 
 
 class LongestWordsJob(MRJob):
@@ -30,7 +31,9 @@ class LongestWordsJob(MRJob):
         """
         number = self.options.number
         if line:
-            words = sorted(line.split(), key=len, reverse=True)
+            regexp = "([a-zA-Z]+)+"
+            words = re.split(regexp, line)
+            words = sorted([words[i] for i in range(len(words)) if i % 2 == 1], key=len, reverse=True)
             max_word = words[:number]
             yield None, max_word
 
@@ -40,6 +43,7 @@ class LongestWordsJob(MRJob):
         mappers and will return the --number longest of them as a single text (one word per line).
         """
         values = reduce(add, values, [])
+        values = list(set(values))
         number = self.options.number
         words = sorted(values, key=len, reverse=True)
         max_word = words[:number]
