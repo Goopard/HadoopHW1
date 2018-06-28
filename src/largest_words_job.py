@@ -31,11 +31,22 @@ class LongestWordsJob(MRJob):
         """
         number = self.options.number
         if line:
-            regexp = "([a-zA-Z]+)+"
-            words = re.split(regexp, line)
-            words = sorted([words[i] for i in range(len(words)) if i % 2 == 1], key=len, reverse=True)
+            regexp = "[a-zA-Z]+"
+            words = re.findall(regexp, line)
+            words = sorted(words, key=len, reverse=True)
             max_word = words[:number]
             yield None, max_word
+
+    def combiner(self, key, values):
+        """
+        This is the combiner function of the job, it finds the --number longest words in the values.
+        """
+        values = reduce(add, values, [])
+        values = list(set(values))
+        number = self.options.number
+        words = sorted(values, key=len, reverse=True)
+        max_word = words[:number]
+        yield None, max_word
 
     def reducer(self, key, values):
         """

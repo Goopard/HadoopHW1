@@ -29,7 +29,10 @@ class ReducerTests(unittest.TestCase):
         """
         test_job = LongestWordsJob(['--number=2'])
         values = (['word'], ['abacaba', 'adacadabadacada'], ['abacabadabacaba'])
-        self.assertEqual(next(test_job.reducer(None, values)), (None, 'abacabadabacaba\nadacadabadacada\n'))
+        try:
+            self.assertEqual(next(test_job.reducer(None, values)), (None, 'abacabadabacaba\nadacadabadacada\n'))
+        except AssertionError:
+            self.assertEqual(next(test_job.reducer(None, values)), (None, 'adacadabadacada\nabacabadabacaba\n'))
 
 
 if __name__ == '__main__':

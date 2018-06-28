@@ -1,0 +1,11 @@
+configure_options() is deprecated and will be removed in v0.7.0; please use configure_args() instead.
+add_passthrough_option() is deprecated and will be removed in v0.7.0. Use add_passthru_arg() instead.
+.configure_options() is deprecated and will be removed in v0.7.0; please use configure_args() instead.
+add_passthrough_option() is deprecated and will be removed in v0.7.0. Use add_passthru_arg() instead.
+.configure_options() is deprecated and will be removed in v0.7.0; please use configure_args() instead.
+add_passthrough_option() is deprecated and will be removed in v0.7.0. Use add_passthru_arg() instead.
+.
+----------------------------------------------------------------------
+Ran 3 tests in 0.014s
+
+OK

@@ -3,8 +3,6 @@ This is a unittest testcase for the function mapper of the job LargestWordsJob.
 """
 
 import unittest
-import sys
-from io_redirect import StdOutRedirector
 from largest_words_job import LongestWordsJob
 
 
